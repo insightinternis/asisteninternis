@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asisten Konsulan Penyakit Dalam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5F4;--sf:#FFFFFF;--sf2:#E8EEEC;--tx:#14232B;--mut:#546A72;--ln:#CFDAD7;--ac:#0F6E66;--acs:#D5EBE7;--lo:#1F5FA8;--hi:#B4442F;--ok:#2E7D4F;--wn:#FFF4DC;--wnt:#7A5200;
+--serif:"Cormorant Garamond",Georgia,serif;--sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C171D;--sf:#13222A;--sf2:#1A2E38;--tx:#E6EEEC;--mut:#8FA6AC;--ln:#27404B;--ac:#5CC4B4;--acs:#16362F;--lo:#7DB2F0;--hi:#F0907A;--ok:#7CCB9B;--wn:#2A2414;--wnt:#E8C77A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0C171D;--sf:#13222A;--sf2:#1A2E38;--tx:#E6EEEC;--mut:#8FA6AC;--ln:#27404B;--ac:#5CC4B4;--acs:#16362F;--lo:#7DB2F0;--hi:#F0907A;--ok:#7CCB9B;--wn:#2A2414;--wnt:#E8C77A;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 15px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 48px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:8px 0 22px;border-bottom:1px solid var(--ln);margin-bottom:24px}
+h1{font:600 clamp(30px,5vw,46px)/1.05 var(--serif);margin:0;letter-spacing:.2px}
+header p{margin:6px 0 0;color:var(--mut);max-width:52ch}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+button,select,input,textarea{font:inherit;color:inherit}
+.btn{border:1px solid var(--ln);background:var(--sf);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:500;min-height:40px}
+.btn:hover{border-color:var(--ac)}
+.btn.pri{background:var(--ac);border-color:var(--ac);color:var(--bg);font-weight:600}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+main{display:grid;gap:24px;grid-template-columns:1fr}
+@media (min-width:920px){main{grid-template-columns:minmax(340px,430px) 1fr;align-items:start}.left{position:sticky;top:16px}}
+.panel{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:18px}
+.panel+.panel{margin-top:16px}
+h2{font:600 22px/1.2 var(--serif);margin:0 0 12px}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+textarea{width:100%;min-height:210px;resize:vertical;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:12px;font-size:14px;line-height:1.5}
+.row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 12px}
+.grid input,.grid select{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:8px 10px;min-height:40px}
+.td{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pt{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;margin-bottom:14px}
+.pt strong{font:600 22px/1.2 var(--serif)}
+.vit{color:var(--mut);font-size:13px}
+.dxbox{border-left:4px solid var(--ac);padding:4px 0 4px 16px;margin-bottom:18px}
+.dxbox .big{font:600 clamp(26px,3.6vw,36px)/1.15 var(--serif);margin:0}
+.dxbox small{color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{background:var(--acs);border-radius:999px;padding:4px 12px;font-size:13px}
+.chip b{font-weight:600}
+.tx{border-top:1px solid var(--ln);padding:12px 0}
+.tx:first-of-type{border-top:0}
+.tx h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.tx h3 span{font-weight:400;color:var(--mut);font-size:13px;margin-left:6px}
+ul{margin:0;padding-left:20px}li{margin:3px 0}
+.note{background:var(--wn);color:var(--wnt);border-radius:10px;padding:10px 14px;font-size:14px;margin-top:12px}
+.note ul{padding-left:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--ln)}
+th{font-weight:600;color:var(--mut);font-size:13px}
+.num{font-variant-numeric:tabular-nums}
+.st{font-weight:600;white-space:nowrap}
+.st.lo{color:var(--lo)}.st.hi{color:var(--hi)}.st.ok{color:var(--ok)}.st.na{color:var(--mut);font-weight:400}
+.empty{color:var(--mut);padding:28px 4px;text-align:center}
+.scroll{overflow-x:auto}
+details{margin-top:12px;color:var(--mut);font-size:14px}summary{cursor:pointer;font-weight:500;color:var(--tx)}
+footer{margin-top:28px;color:var(--mut);font-size:13px;max-width:70ch}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+.drop{position:relative;display:block;border:1.5px dashed var(--ln);border-radius:10px;padding:16px;text-align:center;color:var(--mut);cursor:pointer}
+.drop:hover,.drop.on,.drop:focus-within{border-color:var(--ac);background:var(--acs);color:var(--tx)}
+.fi{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0;z-index:1}
+#attlist{list-style:none;padding:0;margin:12px 0 0}
+.att{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--ln)}
+.att .th{width:44px;height:44px;border-radius:8px;background:var(--sf2);display:grid;place-items:center;font-weight:600;font-size:12px;overflow:hidden;flex:none}
+.att .th img{width:100%;height:100%;object-fit:cover}
+.att .nm{flex:1;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.att small{display:block;color:var(--mut)}
+.atg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.ac{margin:0;border:1px solid var(--ln);border-radius:10px;padding:8px;font-size:13px;overflow-wrap:anywhere}
+.ac img{width:100%;height:130px;object-fit:cover;border-radius:6px;display:block;margin-bottom:6px}
+.ac b{display:block;font-size:22px;font-family:var(--serif)}
+@media print{.left,.tools,.row,details,.toast{display:none!important}main{display:block}body{background:#fff;color:#000}.panel{border:0;padding:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Asisten Konsulan Penyakit Dalam</h1>
+    <p>Tempel laporan konsulan dari ruangan. Parameter terbaca otomatis, lalu diagnosis dan terapi disusun menurut aturan yang berlaku.</p>
+  </div>
+  <div class="tools">
+    <button class="btn" id="theme" type="button" aria-label="Ganti mode tampilan">Mode gelap</button>
+  </div>
+</header>
+
+<main>
+  <div class="left">
+    <section class="panel" aria-labelledby="h-lap">
+      <h2 id="h-lap">Laporan konsulan</h2>
+      <label for="raw">Tempel teks laporan di sini</label>
+      <textarea id="raw" placeholder="Mengonsulkan pasien atas nama: Ny. … / S/ … / O/ … / lab …"></textarea>
+      <div class="row">
+        <button class="btn pri" id="go" type="button">Analisis laporan</button>
+        <button class="btn" id="ex" type="button">Isi contoh</button>
+        <button class="btn" id="rs" type="button">Hapus data</button>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="h-att">
+      <h2 id="h-att">Lampiran laporan</h2>
+      <div class="drop" id="drop"><strong>Ketuk untuk memilih file</strong><br>Hasil laboratorium atau foto Ro thoraks, atau seret file ke sini<br><small>PDF, JPG, atau PNG, maksimal 15 MB per file</small>
+      <input class="fi" id="file" type="file" multiple aria-label="Pilih file lampiran" accept="image/png,image/jpeg,application/pdf"></div>
+      <p class="vit" style="margin:10px 0 0">Pemilih file tidak muncul? Buka halaman ini di peramban Chrome, bukan di dalam aplikasi.</p>
+      <ul id="attlist"></ul>
+    </section>
+    <section class="panel" aria-labelledby="h-par">
+      <h2 id="h-par">Parameter terbaca</h2>
+      <p class="vit" style="margin:0 0 12px">Periksa dan koreksi bila perlu. Hasil ikut berubah saat Anda mengetik.</p>
+      <div class="grid" id="fields"></div>
+    </section>
+  </div>
+
+  <div class="right" id="out" aria-live="polite"></div>
+</main>
+
+<footer>Alat bantu penyusun konsulan berdasarkan aturan tetap yang Anda tetapkan. Keputusan klinis akhir tetap pada dokter penanggung jawab pasien.</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const num=s=>{const n=parseFloat(String(s).replace(',','.'));return isNaN(n)?null:n};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const N='(\\d+(?:[.,]\\d+)?)';
+const P=[
+ {k:'na',l:'Natrium (Na⁺)',u:'mmol/L',lo:135,hi:145,re:new RegExp('\\bNa\\b\\s*[:=]?\\s*'+N)},
+ {k:'k',l:'Kalium (K⁺)',u:'mmol/L',lo:3.5,hi:5.0,re:new RegExp('\\bK\\b\\s*[:=]?\\s*'+N)},
+ {k:'cl',l:'Klorida (Cl⁻)',u:'mmol/L',lo:96,hi:108,re:new RegExp('\\bCl\\b\\s*[:=]?\\s*'+N,'i')},
+ {k:'ca',l:'Kalsium (Ca²⁺)',u:'mg/dL',lo:8.5,hi:10.5,re:new RegExp('\\bCa\\b\\s*[:=]?\\s*'+N,'i')},
+ {k:'mg',l:'Magnesium (Mg²⁺)',u:'mg/dL',lo:1.5,hi:2.7,re:new RegExp('\\bMg\\b\\s*[:=]?\\s*'+N)},
+ {k:'po4',l:'Fosfat',u:'mg/dL',lo:2.5,hi:4.5,re:new RegExp('\\b(?:Fosfat|Phosphat|PO4)\\b\\s*[:=]?\\s*'+N,'i')},
+ {k:'hco3',l:'Bikarbonat (HCO₃⁻)',u:'mmol/L',lo:22,hi:30,re:new RegExp('\\b(?:HCO3|Bikarbonat)\\b\\s*[:=]?\\s*'+N,'i')},
+ {k:'hb',l:'Hemoglobin (Hb)',u:'g/dL',lo:null,hi:null,re:new RegExp('\\b(?:HGB|Hb|Hemoglobin)\\b\\s*[:=]?\\s*'+N,'i')}
+];
+const X=[
+ ['wbc','Leukosit (WBC)',new RegExp('\\b(?:WBC|Leukosit)\\b\\s*[:=]?\\s*'+N,'i')],
+ ['plt','Trombosit (PLT)',new RegExp('\\b(?:PLT|Trombosit)\\b\\s*[:=]?\\s*'+N,'i')],
+ ['bun','BUN',new RegExp('\\bBUN\\b\\s*[:=]?\\s*'+N,'i')],
+ ['sk','Kreatinin',new RegExp('\\b(?:SK|SCr|Kreatinin|Creatinine)\\b\\s*[:=]?\\s*'+N,'i')],
+ ['alb','Albumin',new RegExp('\\b(?:Alb|Albumin)\\b\\s*[:=]?\\s*'+N,'i')],
+ ['spo2','SpO₂',new RegExp('SpO2\\s*[:=]?\\s*'+N,'i')],
+ ['nadi','Nadi',new RegExp('\\bN\\s*[:=]?\\s*(\\d{2,3})\\b')],
+ ['rr','RR',new RegExp('\\bRR\\s*[:=]?\\s*(\\d{1,2})\\b','i')],
+ ['suhu','Suhu',new RegExp('\\bS\\s*[:=]?\\s*(3\\d(?:[.,]\\d)?)\\b')]
+];
+const S={name:'',ckd:false,bb:60,rh:null,sys:null,dia:null,gcs:null,v:{},x:{}};
+const EX=`Selamat malam Mengonsulkan pasien atas nama:
+
+Ny. Suyanti/49 thn
+
+S/ Kesadaran menurun sejak kemarin. Muntah (-) nyeri kepala (-) kejang (-) demam (-) batuk (-) sesak (+) lungkai di tungkai bawah kanan (+)
+
+RPD DM (+) HT (-) CKD (-)
+
+O/
+
+GCS 345
+
+TD 101/60
+
+N 102
+
+RR 24
+
+S 37.1
+
+SpO2 100% on NRBM 10 LPM
+
+Konjungtiva Anemis +/+
+
+Rh -/- Wh -/-
+
+Oedem Tungkai -/-
+
+Lateralisasi (-)
+
+Ulkus DM Cruris Dextra (+)
+
+Hasil Laboratorium dan Ro Thoraks terlampir
+
+WBC 20.79
+
+HGB 6.8
+
+PLT 933
+
+GDA 112
+
+BUN 100.0
+
+SK 2.6
+
+Na 129
+
+K 4.3
+
+OT 43
+
+PT 65
+
+Alb 2.8
+
+P/
+
+O2 NRBM 10 lpm
+Inf. PZ 14 tpm
+Inj. Antrain
+Inj. OMZ
+Inj. Ondan 4 mg
+Inj. Citicolin 250 mg
+Inj. Mecobalamin
+
+Terima kasih dokteer.`;
+
+function parse(t){
+  const m1=t.match(/\b(?:Tn|Ny|Nn|An|By)\.?\s*[^\n\/]+\/\s*\d+\s*(?:thn|th|tahun)?/i);
+  S.name=m1?m1[0].trim():'';
+  P.forEach(p=>{const m=t.match(p.re);S.v[p.k]=m?num(m[1]):null});
+  X.forEach(([k,,re])=>{const m=t.match(re);S.x[k]=m?num(m[1]):null});
+  const td=t.match(/\bTD\s*[:=]?\s*(\d{2,3})\s*\/\s*(\d{2,3})/i);
+  S.sys=td?+td[1]:null;S.dia=td?+td[2]:null;
+  if(/\b(CKD|GGK|PGK)\s*\(\s*-\s*\)/i.test(t))S.ckd=false;
+  else if(/\b(CKD|GGK|PGK)\s*(\(\s*\+\s*\)|stage|st\.?\s*\d|on\s*HD)/i.test(t))S.ckd=true;
+  else S.ckd=false;
+  const rh=t.match(/\b(?:Rh|ronkh?i|rochi)\b\s*[:=]?\s*([+\-]\s*\/\s*[+\-]|\(\s*[+\-]\s*\)|[+\-])/i);
+  S.rh=rh?rh[1].includes('+'):(/\bALO\b/i.test(t)?true:null);
+  const g=t.match(/GCS\s*[:=]?\s*(\d{1,3})/i);
+  S.gcs=null;
+  if(g){const d=g[1];S.gcs=d.length===3?{e:+d[0],v:+d[1],m:+d[2],t:+d[0]+ +d[1]+ +d[2]}:{t:+d}}
+}
+
+function analyze(){
+  const v=S.v,dx=[],tx=[],notes=[],miss=[];
+  const hbCut=S.ckd?8:10;
+  const T=(g,items,rule)=>tx.push({g,items,rule});
+  T('Terapi dasar',[`Infus PZ ${S.ckd?7:21} tpm`,'Omeprazole 2×1','Ondansetron 3×8 mg','Santagesik 3×1'],S.ckd?'infus 7 tpm pada CKD':'infus 21 tpm pada bukan CKD');
+  if(v.na!=null&&v.na<135){
+    dx.push(['Hiponatremia',`Na ${v.na} (normal 135–145)`]);
+    if(v.na<130)T('Hiponatremia',['NaCl 3% 7 tpm, dicabang dengan PZ 0,9% 7 tpm'],'Na < 130');
+    else notes.push('Na 130–134: tidak memenuhi aturan NaCl 3% (Na < 130), cukup dengan infus dasar.');
+  }
+  if(v.k!=null&&v.k>5.0){
+    dx.push(['Hiperkalemia',`K ${v.k} (normal 3,5–5,0)`]);
+    const it=['Ca gluconas 3×1'];
+    if(v.k>5.5)it.push('D40 + 2 unit Apidra, diulang 3× selang 1 jam');
+    T('Hiperkalemia',it,v.k>5.5?'K > 5,5':'K 5,1–5,5: D40 + Apidra belum diperlukan');
+  }
+  if(v.ca!=null&&v.ca<8.5){
+    dx.push(['Hipokalsemia',`Ca ${v.ca} (normal 8,5–10,5)`]);
+    T('Hipokalsemia',['Ca gluconas 1×1, drip dalam PZ 100 cc'],'Ca < 8,5');
+  }
+  if(v.hco3!=null&&v.hco3<22){
+    dx.push(['Asidosis metabolik',`HCO₃ ${v.hco3} (normal 22–30)`]);
+    T('Asidosis metabolik',['Nabic 50 mEq dalam 250 cc PZ per 8 jam','Ulangi dengan dosis yang sama per 16 jam'],'HCO₃ < 22');
+  }
+  if(S.sys!=null){
+    if(S.sys>=200){
+      dx.push(['Hipertensi emergensi',`TD ${S.sys}/${S.dia??'–'}`]);
+      T('Hipertensi emergensi',[`Nicardipine pump, mulai 0,5 mcg/kgBB/menit = ${+(0.5*S.bb).toFixed(1)} mcg/menit`,`Maksimal 1,5 mcg/kgBB/menit = ${+(1.5*S.bb).toFixed(1)} mcg/menit`],`BB ${S.bb} kg`);
+    }else if(S.sys>=140){
+      dx.push(['Hipertensi stage 2',`TD ${S.sys}/${S.dia??'–'}`]);
+      T('Hipertensi stage 2',['Amlodipine 10 mg 1×1 malam','Candesartan 16 mg 1×1 pagi'],'TD sistolik 140–199');
+      if(v.k!=null&&v.k>5.0)notes.push('Candesartan pada pasien hiperkalemia: perhatikan kadar kalium.');
+    }
+  }
+  if(S.rh===true){
+    dx.push(['ALO','Ronki (+)']);
+    T('ALO',['Lasix 6 amp/24 jam'],'ada ronki');
+    if(!S.ckd)notes.push('ALO pada pasien bukan CKD: infus dasar 21 tpm tetap mengikuti aturan, pertimbangkan beban cairan.');
+  }
+  if(v.hb!=null&&v.hb<hbCut){
+    dx.push(['Anemia',`Hb ${v.hb} (batas ${S.ckd?'< 8 pada CKD':'< 10 pada bukan CKD'})`]);
+    T('Anemia',['Transfusi PRC 1 kolf durante HD','Premedikasi difenhidramin 1 amp'],`Hb < ${hbCut}`);
+  }
+  [['na','Na'],['k','K'],['ca','Ca'],['hco3','HCO₃'],['hb','Hb']].forEach(([k,l])=>{if(v[k]==null)miss.push(l)});
+  if(S.sys==null)miss.push('TD');
+  if(S.rh==null)miss.push('ronki');
+  const o=[],x=S.x;
+  if(x.wbc>11)o.push(`Leukositosis, WBC ${x.wbc}`);
+  if(x.plt>450)o.push(`Trombositosis, PLT ${x.plt}`);
+  if(x.sk>1.2)o.push(`Kreatinin meningkat, SK ${x.sk}`);
+  if(x.bun>20)o.push(`BUN meningkat, ${x.bun}`);
+  if(x.alb!=null&&x.alb<3.5)o.push(`Hipoalbuminemia, Alb ${x.alb}`);
+  if(x.spo2!=null&&x.spo2<95)o.push(`SpO₂ ${x.spo2}%`);
+  if(S.gcs&&S.gcs.t<15)o.push(`Penurunan kesadaran, GCS ${S.gcs.e?`E${S.gcs.e}V${S.gcs.v}M${S.gcs.m} = `:''}${S.gcs.t}`);
+  return{dx,tx,notes,miss,o};
+}
+
+function status(p){
+  const val=S.v[p.k];if(val==null)return['na','Belum ada data'];
+  let lo=p.lo,hi=p.hi;
+  if(p.k==='hb'){lo=S.ckd?8:10;hi=null}
+  if(lo!=null&&val<lo)return['lo','▼ Rendah'];
+  if(hi!=null&&val>hi)return['hi','▲ Tinggi'];
+  return['ok','✓ Normal'];
+}
+const rangeTxt=p=>p.k==='hb'?`Anemia bila < ${S.ckd?8:10}`:`${p.lo}–${p.hi} ${p.u}`;
+
+function render(){
+  const out=$('#out');
+  const any=Object.values(S.v).some(x=>x!=null)||S.sys!=null||S.rh!=null;
+  if(!any){out.innerHTML='<div class="panel empty">Tempel laporan konsulan di sebelah kiri, lalu pilih Analisis laporan. Diagnosis dan terapi akan tampil di sini.</div>';return}
+  const r=analyze();
+  const x=S.x,vit=[];
+  if(S.sys!=null)vit.push(`TD ${S.sys}/${S.dia??'–'}`);
+  if(x.nadi!=null)vit.push(`N ${x.nadi}`);
+  if(x.rr!=null)vit.push(`RR ${x.rr}`);
+  if(x.suhu!=null)vit.push(`S ${x.suhu}`);
+  if(x.spo2!=null)vit.push(`SpO₂ ${x.spo2}%`);
+  let h='<section class="panel">';
+  h+=`<div class="pt"><strong>${esc(S.name||'Pasien')}</strong><span class="vit">${esc(vit.join('  ·  '))}${S.ckd?' · CKD':''}</span></div>`;
+  h+='<div class="dxbox"><small>Diagnosis</small>';
+  if(r.dx.length){
+    h+=`<p class="big">${r.dx.map(d=>esc(d[0])).join(' + ')}</p><div class="chips">${r.dx.map(d=>`<span class="chip"><b>${esc(d[0])}</b> ${esc(d[1])}</span>`).join('')}</div>`;
+  }else h+='<p class="big">Tidak ada diagnosis yang memenuhi aturan</p>';
+  h+='</div>';
+  if(r.miss.length)h+=`<div class="note">Belum terisi: ${esc(r.miss.join(', '))}. Diagnosis terkait tidak dievaluasi sampai datanya dilengkapi.</div>`;
+  h+='</section>';
+
+  h+='<section class="panel"><h2>Terapi</h2>';
+  r.tx.forEach(t=>{h+=`<div class="tx"><h3>${esc(t.g)}<span>aturan: ${esc(t.rule)}</span></h3><ul>${t.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`});
+  if(r.notes.length)h+=`<div class="note"><ul>${r.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></div>`;
+  h+='<div class="row"><button class="btn pri" id="cp" type="button">Salin diagnosis dan terapi</button><button class="btn" id="pr" type="button">Cetak</button></div></section>';
+
+  h+=attHTML();
+  h+='<section class="panel"><h2>Parameter terhadap nilai normal</h2><div class="scroll"><table><thead><tr><th>Parameter</th><th>Hasil</th><th>Rujukan</th><th>Status</th></tr></thead><tbody>';
+  P.forEach(p=>{const[c,t]=status(p);const val=S.v[p.k];h+=`<tr><td>${p.l}</td><td class="num">${val==null?'–':val}</td><td class="num">${rangeTxt(p)}</td><td class="st ${c}">${t}</td></tr>`});
+  h+='</tbody></table></div>';
+  if(r.o.length)h+=`<details open><summary>Temuan lain di luar aturan</summary><ul>${r.o.map(i=>`<li>${esc(i)}</li>`).join('')}</ul><p style="margin:6px 0 0">Tidak ada terapi otomatis untuk temuan ini. Tentukan secara klinis.</p></details>`;
+  h+=`<details><summary>Asumsi batas aturan</summary><ul>
+<li>Hipertensi emergensi: TD sistolik ≥ 200. Hipertensi stage 2: 140–199.</li>
+<li>Hiperkalemia didiagnosis bila K &gt; 5,0; D40 + Apidra bila K &gt; 5,5.</li>
+<li>Hipokalsemia: Ca &lt; 8,5. Asidosis metabolik: HCO₃ &lt; 22. Hiponatremia: Na &lt; 135.</li>
+<li>ALO: ronki (+). Anemia: Hb &lt; 10 bukan CKD, &lt; 8 pada CKD.</li>
+<li>Berat badan untuk nicardipine diisi manual (awal 60 kg).</li></ul></details></section>`;
+  out.innerHTML=h;
+  $('#cp').onclick=copy;$('#pr').onclick=()=>window.print();
+}
+
+function copy(){
+  const r=analyze();
+  let t=(S.name?S.name+'\n':'')+'Dx: '+(r.dx.map(d=>d[0]).join(' + ')||'-')+'\n\nTerapi:\n';
+  r.tx.forEach(g=>{t+=g.g+':\n'+g.items.map(i=>'- '+i).join('\n')+'\n'});
+  const done=()=>toast('Tersalin');
+  try{navigator.clipboard.writeText(t).then(done,()=>fallback(t,done))}catch(e){fallback(t,done)}
+}
+function fallback(t,done){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){toast('Salin manual dari tampilan')}a.remove()}
+function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1600)}
+
+function buildFields(){
+  let h='';
+  P.forEach(p=>{h+=`<div><label for="f-${p.k}">${p.l} (${p.u})</label><input id="f-${p.k}" data-k="${p.k}" type="number" step="any" inputmode="decimal"></div>`});
+  h+=`<div><label>Tekanan darah (mmHg)</label><div class="td"><input id="f-sys" aria-label="Sistolik" type="number" inputmode="numeric" placeholder="Sistolik"><input id="f-dia" aria-label="Diastolik" type="number" inputmode="numeric" placeholder="Diastolik"></div></div>
+<div><label for="f-bb">Berat badan (kg)</label><input id="f-bb" type="number" step="any" inputmode="decimal"></div>
+<div><label for="f-ckd">Status CKD</label><select id="f-ckd"><option value="0">Bukan CKD</option><option value="1">CKD</option></select></div>
+<div><label for="f-rh">Ronki paru</label><select id="f-rh"><option value="">Belum diperiksa</option><option value="1">Ada</option><option value="0">Tidak ada</option></select></div>`;
+  $('#fields').innerHTML=h;
+  $('#fields').addEventListener('input',e=>{
+    const el=e.target,id=el.id;
+    if(el.dataset.k)S.v[el.dataset.k]=num(el.value);
+    else if(id==='f-sys')S.sys=num(el.value);
+    else if(id==='f-dia')S.dia=num(el.value);
+    else if(id==='f-bb')S.bb=num(el.value)||60;
+    else if(id==='f-ckd')S.ckd=el.value==='1';
+    else if(id==='f-rh')S.rh=el.value===''?null:el.value==='1';
+    render();
+  });
+}
+function fill(){
+  P.forEach(p=>{$('#f-'+p.k).value=S.v[p.k]??''});
+  $('#f-sys').value=S.sys??'';$('#f-dia').value=S.dia??'';$('#f-bb').value=S.bb;
+  $('#f-ckd').value=S.ckd?'1':'0';$('#f-rh').value=S.rh==null?'':(S.rh?'1':'0');
+}
+function reset(){
+  Object.assign(S,{name:'',ckd:false,bb:60,rh:null,sys:null,dia:null,gcs:null,v:{},x:{}});
+  $('#raw').value='';ATT.length=0;renderAtt();fill();render();
+}
+$('#go').onclick=()=>{const t=$('#raw').value.trim();if(!t){toast('Tempel laporan terlebih dahulu');return}parse(t);fill();render();if(innerWidth<920)$('#out').scrollIntoView({behavior:'smooth'})};
+$('#ex').onclick=()=>{$('#raw').value=EX;$('#go').click()};
+$('#rs').onclick=reset;
+
+const ATT=[];
+const okType=f=>/^(application\/pdf|image\/(jpeg|png))$/.test(f.type)||/\.(pdf|jpe?g|png)$/i.test(f.name);
+const fsize=b=>b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';
+function addFiles(list){
+  let bad=0;const jobs=[];
+  [...list].forEach(f=>{
+    if(!okType(f)||f.size>15*1048576){bad++;return}
+    const a={name:f.name,size:f.size,pdf:/\.pdf$/i.test(f.name)||f.type==='application/pdf',url:''};
+    ATT.push(a);
+    if(!a.pdf)jobs.push(new Promise(r=>{const fr=new FileReader();fr.onload=()=>{a.url=fr.result;r()};fr.onerror=()=>r();fr.readAsDataURL(f)}));
+  });
+  if(bad)toast(bad+' file dilewati. Hanya PDF, JPG, PNG hingga 15 MB');
+  renderAtt();
+  Promise.all(jobs).then(()=>{renderAtt();render()});
+}
+function renderAtt(){
+  $('#attlist').innerHTML=ATT.map((a,i)=>`<li class="att"><span class="th">${a.pdf||!a.url?'PDF':`<img src="${a.url}" alt="">`}</span><span class="nm">${esc(a.name)}<small>${fsize(a.size)}</small></span><button class="btn" type="button" data-rm="${i}" aria-label="Hapus ${esc(a.name)}">Hapus</button></li>`).join('');
+}
+function attHTML(){
+  if(!ATT.length)return '';
+  return `<section class="panel"><h2>Lampiran (${ATT.length})</h2><div class="atg">${ATT.map(a=>a.pdf?`<div class="ac"><b>PDF</b>${esc(a.name)}</div>`:`<figure class="ac"><img src="${a.url}" alt="${esc(a.name)}"><figcaption>${esc(a.name)}</figcaption></figure>`).join('')}</div><p class="vit" style="margin:10px 0 0">Isi lampiran tidak dibaca otomatis. Masukkan angka hasilnya ke form parameter.</p></section>`;
+}
+$('#file').addEventListener('change',e=>{addFiles(e.target.files);e.target.value=''});
+$('#attlist').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(b){ATT.splice(+b.dataset.rm,1);renderAtt();render()}});
+const dz=$('#drop');
+['dragenter','dragover'].forEach(n=>dz.addEventListener(n,e=>{e.preventDefault();dz.classList.add('on')}));
+['dragleave','drop'].forEach(n=>dz.addEventListener(n,e=>{e.preventDefault();dz.classList.remove('on')}));
+dz.addEventListener('drop',e=>addFiles(e.dataTransfer.files));
+
+const root=document.documentElement;
+const dark=()=>root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+function label(){$('#theme').textContent=dark()?'Mode terang':'Mode gelap'}
+try{const s=localStorage.getItem('konsulan-theme');if(s)root.dataset.theme=s}catch(e){}
+$('#theme').onclick=()=>{const n=dark()?'light':'dark';root.dataset.theme=n;try{localStorage.setItem('konsulan-theme',n)}catch(e){}label()};
+label();buildFields();fill();render();
+</script>
+</body>
+</html>
